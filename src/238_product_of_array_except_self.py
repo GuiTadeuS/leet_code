@@ -3,16 +3,20 @@ from typing import List
 
 class Solution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
-        answer = []
-        for index_x, value_x in enumerate(nums):
-            stash = []
-            result = 1
-            for index_y, value_y in enumerate(nums):
-                if index_x != index_y:
-                    stash.append(value_y)
-            for value in stash:
-                result = result * value
-            answer.append(result)
+        # Inicializando
+        n = len(nums)
+        prefix = 1
+        postfix = 1
+        answer = [1] * n
+
+        for index in range(n):
+            answer[index] = prefix
+            prefix *= nums[index]
+
+        for index in range(n - 1, -1, -1):
+            answer[index] *= postfix
+            postfix *= nums[index]
+
         return answer
 
 
